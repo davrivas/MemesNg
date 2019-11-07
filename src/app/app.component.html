@@ -8,10 +8,11 @@
                     <label for="search">Search for memes</label>
                 </div>
                 <div class="col">
-                    <input class="form-control" placeholder="Search" type="text" name="search" id="search" [(ngModel)]='search'>
+                    <input class="form-control" placeholder="Search" type="text" name="search" id="search"
+                        [(ngModel)]='search'>
                 </div>
                 <div class="col">
-                    <button class="btn btn-primary">
+                    <button class="btn btn-primary" (click)='searchForMemes()'>
                         Search
                     </button>
                 </div>
@@ -21,11 +22,16 @@
         <hr>
 
         <div class="row">
-            <section *ngFor='let meme of memes' class='col-lg-4 col-md-6'>
-                <h2>{{ meme.name }}</h2>
-                <img [src]="meme.url" [alt]='meme.name' class='img-fluid'>
-                <hr>
-            </section>
+            <div *ngFor='let meme of memes' class='col-lg-4 col-md-6 mb-3'>
+                <div class="card">
+                    <div class="card-header">
+                        <h5>{{ meme.name }}</h5>
+                    </div>
+                    <div class="card-body">
+                        <img [src]="meme.url" [alt]='meme.name' class='img-thumbnail'>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
 </div>

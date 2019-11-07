@@ -23,4 +23,18 @@ export class AppComponent  implements OnInit {
             error => alert(`Error: ${error}`)
         );
     }
+
+    searchForMemes(): void {
+        if (this.search === undefined || this.search.trim().length === 0) {
+            this.memes = this.allMemes;
+        } else {
+            this.memes = this.performFilter(this.search);
+        }
+    }
+
+    private performFilter(filter: string): Meme[] {
+        filter = filter.toLocaleLowerCase();
+        return this.allMemes.filter((meme: Meme) => meme.name.toLocaleLowerCase().indexOf(filter) !== -1);
+    }
+
 }
