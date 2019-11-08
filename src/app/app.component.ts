@@ -10,7 +10,10 @@ import { MemeApi } from './models/MemeApi';
 })
 export class AppComponent  implements OnInit {
     memes: Meme[];
-    isBusy: boolean;
+    errorMessage: string;
+
+    private isBusy: boolean;
+    private isNot200Code: boolean;
 
     private allMemes: Meme[];
 
@@ -25,8 +28,29 @@ export class AppComponent  implements OnInit {
         this.memes = this.search ? this.performFilter(this.search) : this.allMemes;
     }
 
+    get hasMemes(): boolean {
+        return !this.isBusy && this.memes && this.memes.length !== 0;
+    }
+
+    get hasNotMemes(): boolean {
+        return !this.isBusy && this.memes && this.memes.length === 0 && !this.isNot200Code;
+    }
+
+    get isLoading(): boolean {
+        return this.isBusy;
+    }
+
+    get hasLoaded(): boolean {
+        return !this.isBusy;
+    }
+
+    get hasFailed(): boolean {
+        return !this.isBusy && this.isNot200Code;
+    }
+
     constructor(private service: MemesService) {
         this.isBusy = true;
+        this.isNot200Code = false;
     }
 
     ngOnInit(): void {
@@ -36,7 +60,11 @@ export class AppComponent  implements OnInit {
                 this.memes = this.allMemes;
                 this.isBusy = !this.isBusy;
             },
-            error => alert(`An error ocurred: ${error.message}`)
+            error => {
+                this.errorMessage = error.message;
+                this.isNot200Code = !this.isNot200Code;
+                this.isBusy = !this.isBusy;
+            }
         );
     }
 
