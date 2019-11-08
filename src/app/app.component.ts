@@ -23,7 +23,7 @@ export class AppComponent  implements OnInit {
         this.memes = this.search ? this.performFilter(this.search) : this.allMemes;
     }
 
-    constructor(private service: MemesService, ) { }
+    constructor(private service: MemesService) { }
 
     ngOnInit(): void {
         this.service.getMemes().subscribe(
