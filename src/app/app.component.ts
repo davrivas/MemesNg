@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Meme } from './models/meme';
 import { MemesService } from './services/MemesService';
 import { MemeApi } from './models/MemeApi';
@@ -11,7 +11,17 @@ import { MemeApi } from './models/MemeApi';
 export class AppComponent  implements OnInit {
     private allMemes: Meme[];
     memes: Meme[];
-    @Input() search: string;
+
+    // tslint:disable-next-line: variable-name
+    private _search: string;
+    get search() {
+        return this._search;
+    }
+
+    set search(value: string) {
+        this._search = value;
+        this.memes = this.search ? this.performFilter(this.search) : this.allMemes;
+    }
 
     constructor(private service: MemesService, ) { }
 
@@ -26,11 +36,7 @@ export class AppComponent  implements OnInit {
     }
 
     searchForMemes(): void {
-        if (this.search === undefined || this.search.trim().length === 0) {
-            this.memes = this.allMemes;
-        } else {
-            this.memes = this.performFilter(this.search);
-        }
+        this.memes = this._search ? this.performFilter(this._search) : this.allMemes;
     }
 
     private performFilter(filter: string): Meme[] {
