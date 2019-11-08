@@ -1,5 +1,5 @@
 <div class="container">
-    <h1 class='text-center mt-3'>Templates for memes</h1>
+    <h1 class='text-center mt-3'>Memes Ng</h1>
 
     <p>Made with <a href="https://api.imgflip.com/" target="_blank">Imgflip Meme Generator API</a></p>
 
@@ -35,8 +35,9 @@
             </div>
         </div>
 
-        <div *ngIf='isBusy' class="row">
-            <h5>Loading...</h5>
+        <div *ngIf='isBusy' class="col">
+            <img id='loading' src="assets/images/loading.gif" alt="Loading...">
+            <h5 class="text-center">Loading...</h5>
         </div>
     </main>
 </div>
