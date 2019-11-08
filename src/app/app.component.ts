@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Meme } from './models/meme';
 import { MemesService } from './services/MemesService';
+import { MemeApi } from './models/MemeApi';
 
 @Component({
     selector: 'app-root',
@@ -16,11 +17,11 @@ export class AppComponent  implements OnInit {
 
     ngOnInit(): void {
         this.service.getMemes().subscribe(
-            result => {
+            (result: MemeApi) => {
                 this.allMemes = result.data.memes;
                 this.memes = this.allMemes;
             },
-            error => alert(`Error: ${error}`)
+            error => alert(`An error ocurred: ${error.message}`)
         );
     }
 

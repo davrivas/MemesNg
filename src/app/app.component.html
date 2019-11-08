@@ -1,21 +1,17 @@
 <div class="container">
-    <h1 class='text-center'>Memes</h1>
+    <h1 class='text-center mt-3'>Templates for memes</h1>
 
-    <main>
-        <div class="row">
-            <div class="form-row">
-                <div class="col">
-                    <label for="search">Search for memes</label>
-                </div>
-                <div class="col">
-                    <input class="form-control" placeholder="Search" type="text" name="search" id="search"
-                        [(ngModel)]='search'>
-                </div>
-                <div class="col">
-                    <button class="btn btn-primary" (click)='searchForMemes()'>
-                        Search
-                    </button>
-                </div>
+    <p>Made with <a href="https://api.imgflip.com/" target="_blank">Imgflip Meme Generator API</a></p>
+
+    <main class="mt-3">
+        <div class="form-row">
+            <div class="col">
+                <input class="form-control" placeholder="Search for memes" type="text" [(ngModel)]='search'>
+            </div>
+            <div class="col">
+                <button class="btn btn-primary" (click)='searchForMemes()'>
+                    Search
+                </button>
             </div>
         </div>
 
@@ -29,6 +25,9 @@
                     </div>
                     <div class="card-body">
                         <img [src]="meme.url" [alt]='meme.name' class='img-thumbnail'>
+                    </div>
+                    <div class="card-footer">
+                        Box count: {{ meme.box_count }}
                     </div>
                 </div>
             </div>
