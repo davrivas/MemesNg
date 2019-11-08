@@ -9,8 +9,10 @@ import { MemeApi } from './models/MemeApi';
     styleUrls: ['./app.component.css']
 })
 export class AppComponent  implements OnInit {
-    private allMemes: Meme[];
     memes: Meme[];
+    isBusy: boolean;
+
+    private allMemes: Meme[];
 
     // tslint:disable-next-line: variable-name
     private _search: string;
@@ -23,13 +25,16 @@ export class AppComponent  implements OnInit {
         this.memes = this.search ? this.performFilter(this.search) : this.allMemes;
     }
 
-    constructor(private service: MemesService) { }
+    constructor(private service: MemesService) {
+        this.isBusy = true;
+    }
 
     ngOnInit(): void {
         this.service.getMemes().subscribe(
             (result: MemeApi) => {
                 this.allMemes = result.data.memes;
                 this.memes = this.allMemes;
+                this.isBusy = !this.isBusy;
             },
             error => alert(`An error ocurred: ${error.message}`)
         );
