@@ -35,10 +35,6 @@ export class AppComponent  implements OnInit {
         );
     }
 
-    searchForMemes(): void {
-        this.memes = this._search ? this.performFilter(this._search) : this.allMemes;
-    }
-
     private performFilter(filter: string): Meme[] {
         filter = filter.toLocaleLowerCase();
         return this.allMemes.filter((meme: Meme) => meme.name.toLocaleLowerCase().indexOf(filter) !== -1);
